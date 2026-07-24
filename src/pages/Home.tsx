@@ -8,6 +8,7 @@ import CreatorFund from '@/sections/CreatorFund'
 import Studio from '@/sections/Studio'
 import Mission from '@/sections/Mission'
 import Footer from '@/sections/Footer'
+import Griot from '@/components/Griot'
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
         <Studio />
         <Mission />
       </main>
+      <Griot />
       <Footer />
     </div>
   )

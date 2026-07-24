@@ -7,7 +7,7 @@ from pathlib import Path
 
 TOOLS = Path(__file__).parent
 KEY_FILE = Path(r"C:\Users\E Sykes\Documents\quickkick-bot\keys.txt")
-VOICE_ID = "CgY1SqBRXmX1mlZzsXmR"
+VOICE_ID = "NFL5OTl0loQWZD1dgxyn"  # Richard
 
 NARRATION = (
     "Welcome to ROOTLINE — a Black-owned network where the culture owns the stage. "
