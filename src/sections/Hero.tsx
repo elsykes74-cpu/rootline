@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { ArrowUpRight, Play } from "lucide-react";
-import IntroVideoModal from "@/components/IntroVideoModal";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { ArrowUpRight, Play, X } from "lucide-react";
 
 const STATS = [
   { value: "12", label: "Culture Channels" },
@@ -23,15 +23,7 @@ const MARQUEE_ITEMS = [
   "JAZZ",
 ];
 
-/* Floating dust/bokeh particles — deterministic layout, staggered motion */
-const HERO_PARTICLES = Array.from({ length: 12 }, (_, i) => ({
-  left: (i * 83 + 7) % 96,
-  size: 3 + (i % 4) * 2,
-  delay: (i * 1.7) % 11,
-  duration: 9 + (i % 5) * 2,
-  gold: i % 3 !== 0,
-}));
-
+/* Living-hero overlay: 3 subtle gold sun rays drifting above the video */
 const HERO_ALIVE_CSS = `
 .rl-hero-alive { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .rl-hero-fallback { display: none; }
@@ -52,36 +44,135 @@ const HERO_ALIVE_CSS = `
   from { transform: skewX(-16deg) translateX(4vw); opacity: 0.4; }
   to { transform: skewX(-16deg) translateX(-4vw); opacity: 0.9; }
 }
-.rl-hero-particle {
-  position: absolute; bottom: -4vh; border-radius: 9999px;
-  animation: rl-hero-rise linear infinite;
-  will-change: transform, opacity;
-}
-@keyframes rl-hero-rise {
-  0% { transform: translateY(0) translateX(0); opacity: 0; }
-  12% { opacity: 0.75; }
-  55% { transform: translateY(-38vh) translateX(1.5vw); opacity: 0.55; }
-  100% { transform: translateY(-72vh) translateX(-1.5vw); opacity: 0; }
-}
 @media (prefers-reduced-motion: reduce) {
   .rl-hero-video { display: none; }
   .rl-hero-fallback { display: block; }
-  .rl-hero-ray, .rl-hero-particle { animation: none !important; opacity: 0.25; }
-  .rl-hero-particle { display: none; }
+  .rl-hero-ray { animation: none !important; opacity: 0.25; }
 }
 `;
 
+interface CinemaOverlayProps {
+  open: boolean;
+  onClose: () => void;
+}
+
+/**
+ * Pop-out media player for the intro film. Portaled to document.body so it
+ * sits above ALL page chrome (nav included). Closes on ✕, ESC, or backdrop
+ * click; pauses + resets the film on close; locks body scroll while open.
+ */
+function CinemaOverlay({ open, onClose }: CinemaOverlayProps) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [ended, setEnded] = useState(false);
+
+  const handleClose = useCallback(() => {
+    const v = videoRef.current;
+    if (v) {
+      v.pause();
+      v.currentTime = 0;
+    }
+    setEnded(false);
+    onClose();
+  }, [onClose]);
+
+  // ESC to close + body scroll lock — both cleaned up on close/unmount.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") handleClose();
+    };
+    window.addEventListener("keydown", onKey);
+    const previousOverflow = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.documentElement.style.overflow = previousOverflow;
+    };
+  }, [open, handleClose]);
+
+  if (!open) return null;
+
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[100] flex flex-col bg-[#0A0908]/97 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      aria-label="ROOTLINE intro film"
+      onClick={handleClose}
+    >
+      {/* Slim chrome */}
+      <div className="flex items-center justify-between px-6 py-5">
+        <span className="font-display text-lg font-bold tracking-[0.25em] text-[#F5EFE6]">
+          Rootline<span className="text-[#D4A437]">.</span>
+        </span>
+        <button
+          type="button"
+          onClick={handleClose}
+          aria-label="Close player"
+          className="inline-flex items-center gap-2 border border-[#D4A437]/70 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#D4A437] transition-colors duration-300 hover:bg-[#D4A437] hover:text-[#0A0908]"
+        >
+          <X size={14} aria-hidden="true" />
+          Close
+        </button>
+      </div>
+
+      {/* Centered gold-framed 16:9 player — clicks here must not close */}
+      <div className="flex flex-1 items-center justify-center px-6 pb-10">
+        <div
+          className="w-full max-w-5xl border border-[#D4A437]/40 bg-black shadow-[0_0_80px_rgba(212,164,55,0.15)]"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {ended ? (
+            <div className="flex aspect-video flex-col items-center justify-center px-6 text-center">
+              <p className="text-[10px] uppercase tracking-[0.4em] text-[#D4A437]">
+                Rootline
+              </p>
+              <p className="mt-4 font-display text-3xl italic text-[#F5EFE6] sm:text-5xl">
+                The line starts here.
+              </p>
+              <button
+                type="button"
+                onClick={handleClose}
+                className="mt-8 inline-block bg-[#D4A437] px-8 py-3.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0A0908] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#E5BB54]"
+              >
+                Enter ROOTLINE
+              </button>
+            </div>
+          ) : (
+            <video
+              ref={videoRef}
+              src="/videos/intro.mp4"
+              className="aspect-video h-auto w-full"
+              autoPlay
+              controls
+              playsInline
+              preload="auto"
+              onEnded={() => setEnded(true)}
+              onError={handleClose}
+              title="ROOTLINE intro film"
+            />
+          )}
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+}
+
 export default function Hero() {
-  const [introOpen, setIntroOpen] = useState(false);
+  const [playerOpen, setPlayerOpen] = useState(false);
 
   return (
     <section id="top" className="relative flex min-h-screen flex-col overflow-hidden bg-[#0A0908]">
       <style>{HERO_ALIVE_CSS}</style>
 
       {/* Kente stripe along the very top */}
-      <div className="kente-stripe absolute inset-x-0 top-0 z-30 h-1" aria-hidden="true" />
+      <div
+        className="kente-stripe absolute inset-x-0 top-0 z-30 h-1"
+        aria-hidden="true"
+      />
 
-      {/* Background video + overlays */}
+      {/* Background video + overlays — the hero always stays in this ambient state */}
       <div className="absolute inset-0" aria-hidden="true">
         <video
           className="rl-hero-video h-full w-full object-cover"
@@ -99,32 +190,15 @@ export default function Hero() {
           alt=""
           className="rl-hero-fallback h-full w-full object-cover"
         />
+
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A0908]/70 via-[#0A0908]/30 to-[#0A0908]" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A0908] via-[#0A0908]/45 to-transparent" />
 
-        {/* Living-hero overlay: sun rays + dust, above video, below text */}
+        {/* Living-hero overlay: sun rays, above video, below text */}
         <div className="rl-hero-alive">
           <div className="rl-hero-ray rl-hero-ray-1" />
           <div className="rl-hero-ray rl-hero-ray-2" />
           <div className="rl-hero-ray rl-hero-ray-3" />
-          {HERO_PARTICLES.map((p, i) => (
-            <span
-              key={i}
-              className="rl-hero-particle"
-              style={{
-                left: `${p.left}%`,
-                width: `${p.size}px`,
-                height: `${p.size}px`,
-                backgroundColor: p.gold ? "#D4A437" : "#F5EFE6",
-                boxShadow: p.gold
-                  ? "0 0 8px 2px rgba(212, 164, 55, 0.45)"
-                  : "0 0 6px 2px rgba(245, 239, 230, 0.3)",
-                filter: "blur(1px)",
-                animationDelay: `${p.delay}s`,
-                animationDuration: `${p.duration}s`,
-              }}
-            />
-          ))}
         </div>
 
         <div className="grain-overlay" />
@@ -164,7 +238,7 @@ export default function Hero() {
         >
           <button
             type="button"
-            onClick={() => setIntroOpen(true)}
+            onClick={() => setPlayerOpen(true)}
             className="inline-flex items-center gap-3 bg-[#D4A437] px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#0A0908] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#E5BB54]"
           >
             <Play size={14} fill="currentColor" aria-hidden="true" />
@@ -213,7 +287,8 @@ export default function Hero() {
         </div>
       </div>
 
-      <IntroVideoModal open={introOpen} onOpenChange={setIntroOpen} />
+      {/* Pop-out cinema player for the intro film */}
+      <CinemaOverlay open={playerOpen} onClose={() => setPlayerOpen(false)} />
     </section>
   );
 }

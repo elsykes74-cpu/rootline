@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import VideoCard, { type Video } from "@/components/VideoCard";
 import PlayerModal from "@/components/PlayerModal";
+import { supabase, type VideoRow } from "@/lib/supabase";
 
 const FILTERS = [
   "All",
@@ -152,11 +153,109 @@ export const VIDEOS: Video[] = [
   },
 ];
 
+const THUMB_BY_CATEGORY: Record<string, string> = {
+  "Film Room": "/images/thumb-film.png",
+  Afrobeats: "/images/thumb-afrobeats.png",
+  "Hip Hop": "/images/thumb-hiphop.png",
+  "HBCU Sports": "/images/thumb-hbcu.png",
+  "Black Tech": "/images/thumb-blacktech.png",
+  Culture: "/images/thumb-culture.png",
+  "Soul Food": "/images/thumb-soulfood.png",
+  Gospel: "/images/thumb-gospel.png",
+  Style: "/images/thumb-style.png",
+  Roots: "/images/thumb-roots.png",
+  Jazz: "/images/thumb-jazz.png",
+};
+
+/** Stable negative numeric id derived from a uuid — avoids showcase id collisions. */
+function uploadId(uuid: string): number {
+  let h = 0;
+  for (let i = 0; i < uuid.length; i++) {
+    h = (Math.imul(h, 31) + uuid.charCodeAt(i)) | 0;
+  }
+  return h === 0 ? -1 : -Math.abs(h);
+}
+
+function formatViews(views: number): string {
+  if (views >= 1e6) return `${(views / 1e6).toFixed(1)}M`;
+  if (views >= 1e3) return `${(views / 1e3).toFixed(1)}K`;
+  return `${views}`;
+}
+
+function formatDuration(seconds: number | null): string {
+  if (seconds === null || !Number.isFinite(seconds) || seconds < 0)
+    return "—:—";
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+}
+
+/** Row shape returned by the published-videos select below. */
+type VideoListRow = Pick<
+  VideoRow,
+  | "id"
+  | "title"
+  | "description"
+  | "category"
+  | "duration_seconds"
+  | "file_path"
+  | "views"
+  | "created_at"
+>;
+
+function rowToVideo(row: VideoListRow): Video {
+  const src = supabase
+    ? supabase.storage.from("videos").getPublicUrl(row.file_path).data
+        .publicUrl
+    : undefined;
+  const category = row.category ?? "Culture";
+  return {
+    id: uploadId(row.id),
+    title: row.title,
+    creator: "ROOTLINE Creator",
+    views: formatViews(row.views ?? 0),
+    duration: formatDuration(row.duration_seconds),
+    category,
+    thumb: THUMB_BY_CATEGORY[category] ?? "/images/thumb-culture.png",
+    description: row.description ?? "",
+    src,
+    isNew: true,
+  };
+}
+
 export default function Watch() {
   const [activeFilter, setActiveFilter] = useState<string>("All");
   const [selected, setSelected] = useState<Video | null>(null);
+  const [uploads, setUploads] = useState<Video[]>([]);
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerVisible, setHeaderVisible] = useState(false);
+
+  // Fetch real creator uploads; any failure silently falls back to showcase-only.
+  useEffect(() => {
+    // Capture into a local const so the non-null narrowing survives into the closure.
+    const client = supabase;
+    if (!client) return;
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const { data, error } = await client
+          .from("videos")
+          .select(
+            "id,title,description,category,duration_seconds,file_path,views,created_at",
+          )
+          .eq("status", "published")
+          .order("created_at", { ascending: false });
+        if (cancelled || error) return;
+        setUploads((data ?? []).map(rowToVideo));
+      } catch {
+        // Network/RLS failure — keep the showcase lineup.
+      }
+    };
+    void load();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     const el = headerRef.current;
@@ -174,10 +273,12 @@ export default function Watch() {
     return () => observer.disconnect();
   }, []);
 
+  const lineup = uploads.length > 0 ? [...uploads, ...VIDEOS] : VIDEOS;
+
   const visible =
     activeFilter === "All"
-      ? VIDEOS
-      : VIDEOS.filter((v) => v.category === activeFilter);
+      ? lineup
+      : lineup.filter((v) => v.category === activeFilter);
 
   return (
     <section id="watch" className="bg-[#0A0908] py-24">

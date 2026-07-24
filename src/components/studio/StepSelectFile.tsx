@@ -3,7 +3,7 @@ import { Check, FileVideo, UploadCloud } from "lucide-react";
 import { DEMO_PACKAGES, type DemoPackage } from "./data";
 
 export type Source =
-  | { kind: "file"; name: string; size: string }
+  | { kind: "file"; name: string; size: string; file: File }
   | { kind: "demo"; pkg: DemoPackage };
 
 interface StepSelectFileProps {
@@ -24,7 +24,12 @@ export default function StepSelectFile({ source, onSelect }: StepSelectFileProps
   const handleFiles = (files: FileList | null) => {
     const file = files?.[0];
     if (!file) return;
-    onSelect({ kind: "file", name: file.name, size: formatBytes(file.size) });
+    onSelect({
+      kind: "file",
+      name: file.name,
+      size: formatBytes(file.size),
+      file,
+    });
   };
 
   const selectedDemoId =

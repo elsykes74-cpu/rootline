@@ -10,7 +10,7 @@ export default function LimitsSidebar() {
         Upload limits
       </p>
       {LIMIT_TIERS.map((tier, i) => {
-        const Icon = TIER_ICONS[i];
+        const Icon = TIER_ICONS[i] ?? Gauge;
         return (
           <div
             key={tier.name}

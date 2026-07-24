@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Mic2, Disc3, Users, SprayCan, FileCheck2, HandCoins, Play } from "lucide-react";
+import { Mic2, Disc3, Users, SprayCan, FileCheck2, HandCoins, Play, Pause } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 interface Track {
@@ -73,6 +73,8 @@ function useInView<T extends HTMLElement>(threshold = 0.15) {
 }
 
 function TrackRow({ track, index, visible }: { track: Track; index: number; visible: boolean }) {
+  const [playing, setPlaying] = useState(false);
+
   return (
     <div
       className="group flex items-center gap-3 rounded-md border border-white/5 bg-white/[0.03] px-4 py-3 transition-all duration-300 hover:border-[#D4A437]/30 hover:bg-white/[0.06]"
@@ -84,10 +86,16 @@ function TrackRow({ track, index, visible }: { track: Track; index: number; visi
     >
       <button
         type="button"
-        aria-label={`Play ${track.title}`}
+        onClick={() => setPlaying((p) => !p)}
+        aria-pressed={playing}
+        aria-label={playing ? `Pause ${track.title}` : `Play ${track.title}`}
         className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#D4A437]/50 text-[#D4A437] transition-all duration-300 group-hover:bg-[#D4A437] group-hover:text-[#0A0908]"
       >
-        <Play className="ml-0.5 h-3.5 w-3.5 fill-current" />
+        {playing ? (
+          <Pause className="h-3.5 w-3.5 fill-current" />
+        ) : (
+          <Play className="ml-0.5 h-3.5 w-3.5 fill-current" />
+        )}
       </button>
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-semibold text-[#F5EFE6]">{track.title}</p>

@@ -11,6 +11,10 @@ export interface Video {
   category: string;
   thumb: string;
   description: string;
+  /** Real playback URL for creator uploads; when present PlayerModal plays it. */
+  src?: string;
+  /** Marks freshly fetched creator uploads in the Watch grid. */
+  isNew?: boolean;
 }
 
 const CATEGORY_AUDIO_SLUGS: Record<string, string> = {
@@ -72,6 +76,13 @@ export default function VideoCard({ video, onSelect, style }: VideoCardProps) {
         <span className="absolute left-3 top-3 rounded-sm border border-white/15 bg-black/60 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#F5EFE6]/90 backdrop-blur-sm">
           {video.category}
         </span>
+
+        {/* New badge — creator uploads freshly added to the lineup */}
+        {video.isNew && (
+          <span className="absolute right-3 top-3 rounded-sm bg-[#D4A437] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#0A0908] shadow-[0_0_14px_rgba(212,164,55,0.4)]">
+            New
+          </span>
+        )}
 
         {/* Duration / LIVE badge */}
         {isLive ? (

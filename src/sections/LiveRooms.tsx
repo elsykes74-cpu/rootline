@@ -76,6 +76,7 @@ function useInView<T extends HTMLElement>() {
 
 function LiveCard({ room, index, visible }: { room: Room; index: number; visible: boolean }) {
   const [viewers, setViewers] = useState(room.baseViewers);
+  const [joined, setJoined] = useState(false);
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
@@ -131,9 +132,11 @@ function LiveCard({ room, index, visible }: { room: Room; index: number; visible
         <div className="absolute inset-x-0 bottom-0 flex justify-center pb-4 opacity-0 transition-all duration-300 group-hover:opacity-100">
           <button
             type="button"
+            onClick={() => setJoined((j) => !j)}
+            aria-pressed={joined}
             className="translate-y-2 rounded-sm bg-[#D4A437] px-5 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#0A0908] transition-all duration-300 hover:bg-[#F5EFE6] group-hover:translate-y-0"
           >
-            Join Room
+            {joined ? "Joined" : "Join Room"}
           </button>
         </div>
       </div>

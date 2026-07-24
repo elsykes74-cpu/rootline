@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, Heart, Share2, Volume2, VolumeX } from "lucide-react";
 import {
   Dialog,
@@ -51,11 +51,12 @@ export default function PlayerModal({ video, open, onOpenChange }: PlayerModalPr
   const [supportOpen, setSupportOpen] = useState(false);
   const [supportedAmount, setSupportedAmount] = useState<number | null>(null);
   const [stingerMuted, setStingerMuted] = useState(false);
+  const shareTimeoutRef = useRef<number | null>(null);
 
   // Play the category stinger once when the modal opens for a video;
   // stop it when the modal closes or the video changes.
   useEffect(() => {
-    if (!open || !video || !stingerAudio) {
+    if (!open || !video || video.src || !stingerAudio) {
       stopStinger();
       return;
     }
@@ -74,14 +75,32 @@ export default function PlayerModal({ video, open, onOpenChange }: PlayerModalPr
     if (stingerAudio) stingerAudio.muted = stingerMuted;
   }, [stingerMuted]);
 
+  // Clear any pending share-reset timeout on unmount.
+  useEffect(
+    () => () => {
+      if (shareTimeoutRef.current !== null) {
+        window.clearTimeout(shareTimeoutRef.current);
+      }
+    },
+    []
+  );
+
   if (!video) return null;
 
   const likeBase = 3200 + video.id * 271;
   const likeCount = likeBase + (liked ? 1 : 0);
 
   const handleShare = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(window.location.href).catch(() => {
+        // Clipboard unavailable (permissions/context) — visual confirmation still shows.
+      });
+    }
     setShared(true);
-    window.setTimeout(() => setShared(false), 2000);
+    if (shareTimeoutRef.current !== null) {
+      window.clearTimeout(shareTimeoutRef.current);
+    }
+    shareTimeoutRef.current = window.setTimeout(() => setShared(false), 2000);
   };
 
   const handleSupport = (amount: number) => {
@@ -108,61 +127,81 @@ export default function PlayerModal({ video, open, onOpenChange }: PlayerModalPr
         <div className="grid max-h-[92vh] lg:grid-cols-[3fr_2fr]">
           {/* Player area */}
           <div className="relative aspect-video overflow-hidden bg-black lg:aspect-auto lg:min-h-[540px]">
-            <img
-              src={video.thumb}
-              alt={`${video.title} — now playing preview`}
-              className="absolute inset-0 h-full w-full object-cover opacity-70"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/60" />
+            {video.src ? (
+              /* Real creator upload — actual playback */
+              <video
+                key={video.src}
+                src={video.src}
+                controls
+                autoPlay
+                playsInline
+                className="absolute inset-0 h-full w-full bg-black object-contain"
+              />
+            ) : (
+              <>
+                <img
+                  src={video.thumb}
+                  alt={`${video.title} — now playing preview`}
+                  className="absolute inset-0 h-full w-full object-cover opacity-70"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/60" />
+              </>
+            )}
 
-            {/* DEMO PREVIEW tag */}
-            <span className="absolute left-4 top-4 rounded-sm border border-[#D4A437]/70 bg-black/60 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4A437] backdrop-blur-sm">
-              Demo Preview
+            {/* DEMO PREVIEW / CREATOR UPLOAD tag */}
+            <span className="absolute left-4 top-4 z-10 rounded-sm border border-[#D4A437]/70 bg-black/60 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4A437] backdrop-blur-sm">
+              {video.src ? "Creator Upload" : "Demo Preview"}
             </span>
 
-            {/* Stinger mute toggle */}
-            <button
-              type="button"
-              onClick={() => setStingerMuted((m) => !m)}
-              aria-pressed={stingerMuted}
-              aria-label={stingerMuted ? "Unmute category stinger" : "Mute category stinger"}
-              className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-[#D4A437]/60 bg-black/60 text-[#D4A437] backdrop-blur-sm transition-all duration-300 hover:bg-[#D4A437] hover:text-black"
-            >
-              {stingerMuted ? (
-                <VolumeX className="h-4 w-4" aria-hidden="true" />
-              ) : (
-                <Volume2 className="h-4 w-4" aria-hidden="true" />
-              )}
-            </button>
+            {/* Stinger mute toggle (demo preview only) */}
+            {!video.src && (
+              <button
+                type="button"
+                onClick={() => setStingerMuted((m) => !m)}
+                aria-pressed={stingerMuted}
+                aria-label={stingerMuted ? "Unmute category stinger" : "Mute category stinger"}
+                className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-[#D4A437]/60 bg-black/60 text-[#D4A437] backdrop-blur-sm transition-all duration-300 hover:bg-[#D4A437] hover:text-black"
+              >
+                {stingerMuted ? (
+                  <VolumeX className="h-4 w-4" aria-hidden="true" />
+                ) : (
+                  <Volume2 className="h-4 w-4" aria-hidden="true" />
+                )}
+              </button>
+            )}
 
-            {/* Pulsing concentric rings */}
-            <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
-              <div className="relative flex h-32 w-32 items-center justify-center">
-                {[0, 1, 2].map((i) => (
+            {/* Pulsing concentric rings (demo preview only) */}
+            {!video.src && (
+              <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+                <div className="relative flex h-32 w-32 items-center justify-center">
+                  {[0, 1, 2].map((i) => (
+                    <span
+                      key={i}
+                      className="rl-ring absolute inset-0 rounded-full border-2 border-[#D4A437]/70"
+                      style={{ animationDelay: `${i * 0.85}s` }}
+                    />
+                  ))}
+                  <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#D4A437] shadow-[0_0_40px_rgba(212,164,55,0.5)]">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-black">
+                      On&nbsp;Air
+                    </span>
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Equalizer bars (demo preview only) */}
+            {!video.src && (
+              <div className="absolute bottom-5 left-0 right-0 flex items-end justify-center gap-1.5" aria-hidden="true">
+                {[0.0, 0.18, 0.36, 0.12, 0.3, 0.22, 0.05].map((delay, i) => (
                   <span
                     key={i}
-                    className="rl-ring absolute inset-0 rounded-full border-2 border-[#D4A437]/70"
-                    style={{ animationDelay: `${i * 0.85}s` }}
+                    className="rl-eq-bar h-8 w-1.5 rounded-full bg-[#D4A437]"
+                    style={{ animationDelay: `${delay}s`, animationDuration: `${0.75 + i * 0.07}s` }}
                   />
                 ))}
-                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#D4A437] shadow-[0_0_40px_rgba(212,164,55,0.5)]">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-black">
-                    On&nbsp;Air
-                  </span>
-                </span>
               </div>
-            </div>
-
-            {/* Equalizer bars */}
-            <div className="absolute bottom-5 left-0 right-0 flex items-end justify-center gap-1.5" aria-hidden="true">
-              {[0.0, 0.18, 0.36, 0.12, 0.3, 0.22, 0.05].map((delay, i) => (
-                <span
-                  key={i}
-                  className="rl-eq-bar h-8 w-1.5 rounded-full bg-[#D4A437]"
-                  style={{ animationDelay: `${delay}s`, animationDuration: `${0.75 + i * 0.07}s` }}
-                />
-              ))}
-            </div>
+            )}
 
             {/* Now playing label */}
             <p className="absolute bottom-5 left-5 hidden text-[10px] font-semibold uppercase tracking-[0.3em] text-[#F5EFE6]/70 sm:block">

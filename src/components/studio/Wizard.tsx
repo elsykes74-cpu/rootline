@@ -7,6 +7,7 @@ import StepRights, { type RightsState } from "./StepRights";
 import StepProcessing from "./StepProcessing";
 import StepPublish from "./StepPublish";
 import LimitsSidebar from "./LimitsSidebar";
+import SupabaseAuthModal from "@/components/auth/SupabaseAuthModal";
 import { DECLARATIONS, STEPS } from "./data";
 
 export default function Wizard() {
@@ -19,6 +20,7 @@ export default function Wizard() {
     advisory: "",
   });
   const [processingDone, setProcessingDone] = useState(false);
+  const [signInOpen, setSignInOpen] = useState(false);
 
   const handleProcessingChange = useCallback(
     (complete: boolean) => setProcessingDone(complete),
@@ -91,7 +93,11 @@ export default function Wizard() {
                 <StepProcessing onCompleteChange={handleProcessingChange} />
               </div>
               <div className={step === 4 ? "" : "hidden"}>
-                <StepPublish />
+                <StepPublish
+                  source={source}
+                  details={details}
+                  onRequestSignIn={() => setSignInOpen(true)}
+                />
               </div>
             </div>
 
@@ -136,6 +142,9 @@ export default function Wizard() {
       </div>
 
       <LimitsSidebar />
+
+      {/* Supabase auth modal — opened from the publish step sign-in prompt */}
+      <SupabaseAuthModal open={signInOpen} onOpenChange={setSignInOpen} />
     </div>
   );
 }
