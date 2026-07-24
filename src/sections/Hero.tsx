@@ -26,7 +26,6 @@ const MARQUEE_ITEMS = [
 /* Living-hero overlay: 3 subtle gold sun rays drifting above the video */
 const HERO_ALIVE_CSS = `
 .rl-hero-alive { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
-.rl-hero-fallback { display: none; }
 .rl-hero-ray {
   position: absolute; top: -25%; height: 150%; width: 16%;
   background: linear-gradient(to bottom, rgba(212, 164, 55, 0.1), rgba(212, 164, 55, 0.02) 55%, transparent);
@@ -45,8 +44,6 @@ const HERO_ALIVE_CSS = `
   to { transform: skewX(-16deg) translateX(-4vw); opacity: 0.9; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .rl-hero-video { display: none; }
-  .rl-hero-fallback { display: block; }
   .rl-hero-ray { animation: none !important; opacity: 0.25; }
 }
 `;
@@ -175,26 +172,15 @@ export default function Hero() {
       {/* Background video + overlays — the hero always stays in this ambient state */}
       <div className="absolute inset-0" aria-hidden="true">
         {/*
-          Framing: her face sits at ~43% x / ~30% y of the source frame.
-          Zoom + anchor re-composes so she lands on the RIGHT third of the
-          screen (under the login button) while the crew on the left stays
-          behind the text column. Mobile anchors to the right edge instead.
+          Static hero (user call: no motion / no Ken Burns). Same zoom-anchor
+          framing as before: her face at ~43% x / ~30% y of the source lands
+          on the RIGHT third of the screen under the login button, crew on
+          the left behind the text column.
         */}
-        <video
-          className="rl-hero-video h-full w-full object-cover object-[35%_center] scale-[1.4] origin-[100%_20%] md:object-center md:scale-[1.6] md:origin-[0%_18%] lg:scale-[1.8] lg:origin-[0%_15%]"
-          src="/videos/hero-alive.mp4"
-          poster="/images/hero.png"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          title="A Black filmmaker framing a shot on a city rooftop at golden hour"
-        />
         <img
           src="/images/hero.png"
-          alt=""
-          className="rl-hero-fallback h-full w-full object-cover object-[35%_center] scale-[1.4] origin-[100%_20%] md:object-center md:scale-[1.6] md:origin-[0%_18%] lg:scale-[1.8] lg:origin-[0%_15%]"
+          alt="A Black filmmaker framing a shot on a city rooftop at golden hour"
+          className="h-full w-full object-cover object-[35%_center] scale-[1.4] origin-[100%_20%] md:object-center md:scale-[1.6] md:origin-[0%_18%] lg:scale-[1.8] lg:origin-[0%_15%]"
         />
 
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(10,9,8,0.92),rgba(10,9,8,0.55)_45%,rgba(10,9,8,0.15)_75%)]" />
