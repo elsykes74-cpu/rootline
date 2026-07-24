@@ -174,8 +174,14 @@ export default function Hero() {
 
       {/* Background video + overlays — the hero always stays in this ambient state */}
       <div className="absolute inset-0" aria-hidden="true">
+        {/*
+          Framing: her face sits at ~43% x / ~30% y of the source frame.
+          Zoom + anchor re-composes so she lands on the RIGHT third of the
+          screen (under the login button) while the crew on the left stays
+          behind the text column. Mobile anchors to the right edge instead.
+        */}
         <video
-          className="rl-hero-video h-full w-full object-cover object-[60%_center] md:object-[78%_center]"
+          className="rl-hero-video h-full w-full object-cover object-[35%_center] scale-[1.4] origin-[100%_20%] md:object-center md:scale-[1.6] md:origin-[0%_18%] lg:scale-[1.8] lg:origin-[0%_15%]"
           src="/videos/hero-alive.mp4"
           poster="/images/hero.png"
           autoPlay
@@ -188,7 +194,7 @@ export default function Hero() {
         <img
           src="/images/hero.png"
           alt=""
-          className="rl-hero-fallback h-full w-full object-cover object-[60%_center] md:object-[78%_center]"
+          className="rl-hero-fallback h-full w-full object-cover object-[35%_center] scale-[1.4] origin-[100%_20%] md:object-center md:scale-[1.6] md:origin-[0%_18%] lg:scale-[1.8] lg:origin-[0%_15%]"
         />
 
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(10,9,8,0.92),rgba(10,9,8,0.55)_45%,rgba(10,9,8,0.15)_75%)]" />
