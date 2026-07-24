@@ -1,0 +1,46 @@
+{
+  "film-room": {
+    "file": "audio/film-room.mp3",
+    "label": "Film Room"
+  },
+  "afrobeats": {
+    "file": "audio/afrobeats.mp3",
+    "label": "Afrobeats"
+  },
+  "hip-hop": {
+    "file": "audio/hip-hop.mp3",
+    "label": "Hip Hop"
+  },
+  "hbcu-sports": {
+    "file": "audio/hbcu-sports.mp3",
+    "label": "HBCU Sports"
+  },
+  "black-tech": {
+    "file": "audio/black-tech.mp3",
+    "label": "Black Tech"
+  },
+  "culture": {
+    "file": "audio/culture.mp3",
+    "label": "Culture"
+  },
+  "soul-food": {
+    "file": "audio/soul-food.mp3",
+    "label": "Soul Food"
+  },
+  "gospel": {
+    "file": "audio/gospel.mp3",
+    "label": "Gospel"
+  },
+  "style": {
+    "file": "audio/style.mp3",
+    "label": "Style"
+  },
+  "roots": {
+    "file": "audio/roots.mp3",
+    "label": "Roots"
+  },
+  "jazz": {
+    "file": "audio/jazz.mp3",
+    "label": "Jazz"
+  }
+}
