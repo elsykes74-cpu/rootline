@@ -70,12 +70,12 @@ export default function Footer() {
       >
         <div className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-20 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-xl">
-            <p className="text-[11px] uppercase tracking-[0.3em] text-[#D4A437]">
+            <p className="gold-text text-[11px] uppercase tracking-[0.3em]">
               Stay on the Line
             </p>
             <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-[#F5EFE6] sm:text-4xl">
               New drops, new creators,{" "}
-              <em className="italic text-[#D4A437]">straight to you.</em>
+              <em className="gold-text italic">straight to you.</em>
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-stone-400">
               One letter a week. No noise, no selling your data — just the
@@ -95,7 +95,7 @@ export default function Footer() {
             />
             <button
               type="submit"
-              className="inline-flex h-12 items-center gap-2 bg-[#D4A437] px-6 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0A0908] transition-all duration-300 hover:bg-[#E5BB54]"
+              className="gold-btn inline-flex h-12 items-center gap-2 px-6 text-[11px] font-semibold uppercase tracking-[0.2em] transition-all duration-300"
             >
               {subscribed ? (
                 <>
@@ -121,10 +121,10 @@ export default function Footer() {
           {/* About / manifesto */}
           <div>
             <a href="#top" className="flex items-center gap-3" aria-label="ROOTLINE home">
-              <span className="flex h-9 w-9 items-center justify-center border border-[#D4A437]">
-                <span className="font-display text-lg italic text-[#D4A437]">R</span>
+              <span className="gold-frame flex h-9 w-9 items-center justify-center">
+                <span className="gold-text font-display text-lg italic">R</span>
               </span>
-              <span className="font-display text-base font-bold tracking-[0.25em] text-[#F5EFE6]">
+              <span className="gold-text font-display text-base font-bold tracking-[0.25em]">
                 ROOTLINE
               </span>
             </a>
@@ -137,7 +137,7 @@ export default function Footer() {
 
           {/* Channels */}
           <nav aria-label="Channels">
-            <h3 className="text-[11px] uppercase tracking-[0.3em] text-[#D4A437]">
+            <h3 className="gold-text text-[11px] uppercase tracking-[0.3em]">
               Channels
             </h3>
             <ul className="mt-6 space-y-3">
@@ -156,7 +156,7 @@ export default function Footer() {
 
           {/* Creator */}
           <nav aria-label="Creator">
-            <h3 className="text-[11px] uppercase tracking-[0.3em] text-[#D4A437]">
+            <h3 className="gold-text text-[11px] uppercase tracking-[0.3em]">
               Creator
             </h3>
             <ul className="mt-6 space-y-3">
@@ -175,7 +175,7 @@ export default function Footer() {
 
           {/* The Promise */}
           <div>
-            <h3 className="text-[11px] uppercase tracking-[0.3em] text-[#D4A437]">
+            <h3 className="gold-text text-[11px] uppercase tracking-[0.3em]">
               The Promise
             </h3>
             <ul className="mt-6 space-y-3">

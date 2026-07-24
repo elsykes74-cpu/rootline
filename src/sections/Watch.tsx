@@ -306,12 +306,12 @@ export default function Watch() {
               : "translate-y-8 opacity-0"
           }`}
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D4A437]">
+          <p className="gold-text text-xs font-semibold uppercase tracking-[0.3em]">
             The Lineup
           </p>
           <h2 className="font-display mt-4 max-w-3xl text-4xl leading-[1.05] tracking-tight text-[#F5EFE6] sm:text-5xl lg:text-6xl">
             Every Window of the{" "}
-            <em className="italic text-[#D4A437]">Culture</em>
+            <em className="gold-text italic">Culture</em>
           </h2>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-stone-400">
             One network, every frequency. Jazz basements and gospel choirs,
@@ -335,7 +335,7 @@ export default function Watch() {
                   onClick={() => setActiveFilter(filter)}
                   className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-widest transition-all duration-300 ${
                     isActive
-                      ? "bg-[#D4A437] text-black shadow-[0_0_20px_rgba(212,164,55,0.3)]"
+                      ? "gold-btn"
                       : "border border-white/20 text-stone-300 hover:border-[#D4A437]/60 hover:text-[#F5EFE6]"
                   }`}
                 >

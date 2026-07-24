@@ -87,7 +87,7 @@ export default function StepSelectFile({ source, onSelect }: StepSelectFileProps
 
       {/* Selected file card */}
       {source?.kind === "file" && (
-        <div className="flex items-center gap-4 rounded-xl border border-[#D4A437]/40 bg-[#D4A437]/5 px-5 py-4">
+        <div className="gold-frame flex items-center gap-4 rounded-xl px-5 py-4">
           <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#D4A437]/15 text-[#D4A437]">
             <FileVideo className="h-5 w-5" />
           </span>
@@ -116,10 +116,10 @@ export default function StepSelectFile({ source, onSelect }: StepSelectFileProps
                 key={pkg.id}
                 type="button"
                 onClick={() => onSelect({ kind: "demo", pkg })}
-                className={`group overflow-hidden rounded-xl border text-left transition-all duration-300 hover:-translate-y-1 ${
+                className={`group overflow-hidden rounded-xl text-left transition-all duration-300 hover:-translate-y-1 ${
                   selected
-                    ? "border-[#D4A437] shadow-[0_0_0_1px_#D4A437]"
-                    : "border-white/10 hover:border-white/25"
+                    ? "gold-frame"
+                    : "border border-white/10 hover:border-white/25"
                 }`}
               >
                 <div className="relative aspect-[3/2] overflow-hidden">

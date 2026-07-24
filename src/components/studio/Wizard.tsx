@@ -70,7 +70,7 @@ export default function Wizard() {
 
           {/* Step content */}
           <div className="flex flex-col p-6 md:p-8">
-            <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#D4A437]">
+            <p className="gold-text mb-1 text-[11px] font-semibold uppercase tracking-[0.25em]">
               Step {step + 1} of {STEPS.length}
             </p>
             <h3 className="font-display mb-6 text-2xl text-[#F5EFE6]">
@@ -124,7 +124,7 @@ export default function Wizard() {
                   disabled={!canContinue}
                   className={`inline-flex items-center gap-2 rounded-sm px-6 py-2.5 text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 ${
                     canContinue
-                      ? "bg-[#D4A437] text-[#0A0908] hover:bg-[#e2b84f]"
+                      ? "gold-btn"
                       : "cursor-not-allowed bg-[#D4A437]/25 text-[#0A0908]/50"
                   }`}
                 >

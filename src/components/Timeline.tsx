@@ -84,7 +84,7 @@ function NodeCard({ node }: { node: TimelineNode }) {
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A0908]/60 to-transparent" />
         </div>
         <div>
-          <p className="font-display text-2xl leading-none text-[#D4A437]">
+          <p className="gold-text font-display text-2xl leading-none">
             {node.year}
           </p>
           <h4 className="font-display mt-2 text-lg leading-snug text-[#F5EFE6]">

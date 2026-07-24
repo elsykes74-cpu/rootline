@@ -81,7 +81,7 @@ export default function StepProcessing({ onCompleteChange }: StepProcessingProps
           className={`inline-flex items-center gap-2 rounded-sm px-5 py-2.5 text-xs font-semibold uppercase tracking-widest transition-all duration-300 ${
             running
               ? "cursor-not-allowed bg-[#D4A437]/30 text-[#0A0908]/60"
-              : "bg-[#D4A437] text-[#0A0908] hover:bg-[#e2b84f]"
+              : "gold-btn"
           }`}
         >
           {running ? (

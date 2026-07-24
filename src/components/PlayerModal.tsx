@@ -210,7 +210,7 @@ export default function PlayerModal({ video, open, onOpenChange }: PlayerModalPr
                 className={`shrink-0 rounded-sm px-4 py-2 text-xs font-bold uppercase tracking-widest transition-all duration-300 ${
                   following
                     ? "border border-white/20 text-stone-300 hover:border-white/40"
-                    : "bg-[#D4A437] text-black hover:bg-[#e2b84f]"
+                    : "gold-btn"
                 }`}
               >
                 {following ? "Following" : "Follow"}
@@ -266,7 +266,7 @@ export default function PlayerModal({ video, open, onOpenChange }: PlayerModalPr
                   setSupportOpen((o) => !o);
                   setSupportedAmount(null);
                 }}
-                className="rounded-sm bg-[#D4A437] px-4 py-2 text-xs font-bold uppercase tracking-widest text-black transition-all duration-300 hover:bg-[#e2b84f]"
+                className="gold-btn rounded-sm px-4 py-2 text-xs font-bold uppercase tracking-widest transition-all duration-300"
               >
                 Support Creator
               </button>
@@ -274,7 +274,7 @@ export default function PlayerModal({ video, open, onOpenChange }: PlayerModalPr
 
             {/* Support panel */}
             {supportOpen && (
-              <div className="mt-4 rounded-sm border border-[#D4A437]/40 bg-[#D4A437]/5 p-4">
+              <div className="gold-frame mt-4 rounded-sm p-4">
                 {supportedAmount === null ? (
                   <>
                     <p className="text-sm font-semibold text-[#F5EFE6]">

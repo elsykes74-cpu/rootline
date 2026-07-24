@@ -132,7 +132,7 @@ export default function Mission() {
       <div className="mx-auto max-w-7xl px-6">
         {/* ---------- PART 1: MANIFESTO ---------- */}
         <Reveal>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D4A437]">
+          <p className="gold-text text-xs font-semibold uppercase tracking-[0.3em]">
             Why Rootline Exists
           </p>
         </Reveal>
@@ -140,11 +140,11 @@ export default function Mission() {
         <Reveal delay={100}>
           <h2 className="font-display mt-8 max-w-5xl text-4xl leading-[1.15] tracking-tight sm:text-5xl lg:text-6xl">
             They built empires on our culture{" "}
-            <em className="italic text-[#D4A437]">and paid us in exposure.</em>
+            <em className="gold-text italic">and paid us in exposure.</em>
             <br />
             <span className="text-stone-300">ROOTLINE flips the deal:</span>{" "}
             the people who make the culture{" "}
-            <em className="italic text-[#D4A437]">
+            <em className="gold-text italic">
               own the platform that profits from it.
             </em>
           </h2>
@@ -172,12 +172,12 @@ export default function Mission() {
         {/* ---------- PART 2: TIMELINE ---------- */}
         <div className="mt-32">
           <Reveal className="text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D4A437]">
+            <p className="gold-text text-xs font-semibold uppercase tracking-[0.3em]">
               The Lineage
             </p>
             <h3 className="font-display mx-auto mt-6 max-w-3xl text-3xl leading-tight tracking-tight sm:text-4xl lg:text-5xl">
               From the Roots{" "}
-              <em className="italic text-[#D4A437]">to Right Now</em>
+              <em className="gold-text italic">to Right Now</em>
             </h3>
             <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-stone-400">
               Every era fed the next. We didn't arrive — we've been here. This
@@ -201,7 +201,7 @@ export default function Mission() {
             <div className="relative bg-white/[0.03] px-8 py-16 text-center sm:px-16">
               <h3 className="font-display text-3xl leading-tight tracking-tight sm:text-4xl lg:text-5xl">
                 The line starts here.{" "}
-                <em className="italic text-[#D4A437]">Get on it.</em>
+                <em className="gold-text italic">Get on it.</em>
               </h3>
               <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-stone-400">
                 One platform. Every generation. Owned by the people who built
@@ -209,7 +209,7 @@ export default function Mission() {
               </p>
               <a
                 href="#studio"
-                className="mt-10 inline-flex items-center justify-center rounded-sm bg-[#D4A437] px-10 py-4 text-xs font-bold uppercase tracking-widest text-[#0A0908] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#F5EFE6] hover:shadow-[0_8px_30px_rgba(212,164,55,0.35)]"
+                className="gold-btn mt-10 inline-flex items-center justify-center rounded-sm px-10 py-4 text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:-translate-y-0.5"
               >
                 Join the Line
               </a>

@@ -127,7 +127,7 @@ export default function StepDetails({ details, onChange }: StepDetailsProps) {
                 onClick={() => set("videoType", t)}
                 className={`rounded-full border px-4 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
                   active
-                    ? "border-[#D4A437] bg-[#D4A437] text-[#0A0908]"
+                    ? "border-transparent gold-btn"
                     : "border-white/15 text-stone-300 hover:border-[#D4A437]/60 hover:text-[#D4A437]"
                 }`}
               >

@@ -107,7 +107,7 @@ function ReviewExampleCard() {
         <button
           type="button"
           onClick={() => setOpen((prev) => (prev === "receipt" ? null : "receipt"))}
-          className="inline-flex flex-1 items-center justify-center gap-2 rounded-sm bg-[#D4A437] px-4 py-2.5 text-[11px] font-semibold uppercase tracking-widest text-black transition-colors hover:bg-[#E4B94F]"
+          className="gold-btn inline-flex flex-1 items-center justify-center gap-2 rounded-sm px-4 py-2.5 text-[11px] font-semibold uppercase tracking-widest transition-all duration-300"
         >
           <ReceiptText className="h-3.5 w-3.5" aria-hidden="true" />
           {open === "receipt" ? "Close receipt" : "Open receipt"}
@@ -180,11 +180,11 @@ export default function CreatorFund() {
             header.inView ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
           }`}
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D4A437]">
+          <p className="gold-text text-xs font-semibold uppercase tracking-[0.3em]">
             The Creator Fund
           </p>
           <h2 className="mt-4 max-w-3xl font-display text-4xl leading-[1.05] tracking-tight text-[#F5EFE6] sm:text-5xl lg:text-6xl">
-            The Bag, <em className="italic text-[#D4A437]">Transparent.</em>
+            The Bag, <em className="gold-text italic">Transparent.</em>
           </h2>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-stone-400">
             A plain look at how creators get paid here. Sample numbers, real
@@ -209,7 +209,7 @@ export default function CreatorFund() {
                 <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-[#D4A437]/30 bg-[#D4A437]/10">
                   <Icon className="h-5 w-5 text-[#D4A437]" aria-hidden="true" />
                 </div>
-                <p className="mt-5 font-display text-5xl text-[#D4A437]">{lane.share}</p>
+                <p className="gold-text mt-5 font-display text-5xl">{lane.share}</p>
                 <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#F5EFE6]">
                   {lane.name} &mdash; to the creator
                 </p>
@@ -229,7 +229,7 @@ export default function CreatorFund() {
             <div>
               <h3 className="font-display text-3xl leading-tight tracking-tight text-[#F5EFE6] sm:text-4xl">
                 AI flags concerns. Humans review with evidence.{" "}
-                <em className="italic text-[#D4A437]">Creators get receipts.</em>
+                <em className="gold-text italic">Creators get receipts.</em>
               </h3>
 
               <div className="mt-10 grid gap-6 sm:grid-cols-3">
@@ -311,11 +311,11 @@ export default function CreatorFund() {
               </ul>
             </div>
 
-            <div className="rounded-xl border border-[#D4A437]/40 bg-[#D4A437]/5 p-7">
+            <div className="gold-frame rounded-xl p-7">
               <div className="flex items-center gap-3">
                 <ShieldCheck className="h-5 w-5 text-[#D4A437]" aria-hidden="true" />
                 <h4 className="font-display text-2xl text-[#F5EFE6]">
-                  The <em className="italic text-[#D4A437]">Line</em>
+                  The <em className="gold-text italic">Line</em>
                 </h4>
               </div>
               <ul className="mt-5 space-y-3">

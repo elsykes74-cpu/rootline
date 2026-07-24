@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Check, ShieldAlert } from 'lucide-react'
 import Reveal from './Reveal'
+import GriotReceipt from './GriotReceipt'
 
 interface ReviewItem {
   id: string
@@ -101,7 +102,10 @@ export default function ReviewQueue() {
                   </p>
                 </div>
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <GriotReceipt
+                  receipt={Number(item.id.slice(-2)) as 1 | 2 | 3}
+                />
                 <button
                   type="button"
                   onClick={() => release(item)}

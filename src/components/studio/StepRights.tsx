@@ -36,10 +36,10 @@ export default function StepRights({ rights, onChange }: StepRightsProps) {
                 type="button"
                 onClick={() => toggle(d.id)}
                 aria-pressed={checked}
-                className={`flex w-full items-start gap-4 rounded-xl border px-5 py-4 text-left transition-all duration-300 ${
+                className={`flex w-full items-start gap-4 rounded-xl px-5 py-4 text-left transition-all duration-300 ${
                   checked
-                    ? "border-[#D4A437]/50 bg-[#D4A437]/5"
-                    : "border-white/10 bg-white/[0.02] hover:border-white/25"
+                    ? "gold-frame"
+                    : "border border-white/10 bg-white/[0.02] hover:border-white/25"
                 }`}
               >
                 <span

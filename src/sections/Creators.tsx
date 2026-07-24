@@ -96,7 +96,7 @@ function CreatorCard({ creator, index }: { creator: Creator; index: number }) {
           className={`flex h-16 w-16 items-center justify-center rounded-full bg-[#16110C] ring-2 ring-offset-2 ring-offset-[#0A0908] ${creator.ring}`}
           aria-hidden="true"
         >
-          <span className="font-display text-3xl italic text-[#D4A437]">
+          <span className="gold-text font-display text-3xl italic">
             {creator.initial}
           </span>
         </div>
@@ -142,7 +142,7 @@ function CreatorCard({ creator, index }: { creator: Creator; index: number }) {
           className={`inline-flex items-center justify-center gap-2 rounded-sm px-4 py-2.5 text-[11px] font-semibold uppercase tracking-widest transition-all duration-300 ${
             following
               ? "border border-[#D4A437]/60 bg-transparent text-[#D4A437]"
-              : "bg-[#D4A437] text-black hover:bg-[#E4B94F]"
+              : "gold-btn"
           }`}
         >
           {following ? (
@@ -169,12 +169,12 @@ export default function Creators() {
             inView ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
           }`}
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D4A437]">
+          <p className="gold-text text-xs font-semibold uppercase tracking-[0.3em]">
             The Next Line
           </p>
           <h2 className="mt-4 max-w-3xl font-display text-4xl leading-[1.05] tracking-tight text-[#F5EFE6] sm:text-5xl lg:text-6xl">
             Rising Creators,{" "}
-            <em className="italic text-[#D4A437]">Real Ownership</em>
+            <em className="gold-text italic">Real Ownership</em>
           </h2>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-stone-400">
             They came for the audience. They stayed for the equity. Every

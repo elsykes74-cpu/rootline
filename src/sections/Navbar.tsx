@@ -69,10 +69,10 @@ export default function Navbar() {
       <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
         {/* Logo */}
         <a href="#top" className="group flex items-center gap-3" aria-label="ROOTLINE home">
-          <span className="flex h-10 w-10 items-center justify-center border border-[#D4A437] bg-[#0A0908]/40 transition-colors group-hover:bg-[#D4A437]/10">
-            <span className="font-display text-xl italic text-[#D4A437]">R</span>
+          <span className="gold-frame flex h-10 w-10 items-center justify-center">
+            <span className="gold-text font-display text-xl italic">R</span>
           </span>
-          <span className="font-display text-lg font-bold tracking-[0.25em] text-[#F5EFE6]">
+          <span className="gold-text font-display text-lg font-bold tracking-[0.25em]">
             ROOTLINE
           </span>
         </a>
@@ -153,7 +153,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => openAuth("signup")}
-              className="inline-block bg-[#D4A437] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0A0908] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#E5BB54]"
+              className="gold-btn inline-block px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] transition-all duration-300 hover:-translate-y-0.5"
             >
               Join the Line
             </button>
@@ -194,7 +194,7 @@ export default function Navbar() {
             <a
               href="#fund"
               onClick={() => setMenuOpen(false)}
-              className="inline-block bg-[#D4A437] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0A0908]"
+              className="gold-btn inline-block px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em]"
             >
               Join the Line
             </a>
@@ -266,7 +266,7 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => openAuth("signup")}
-                className="inline-block bg-[#D4A437] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0A0908]"
+                className="gold-btn inline-block px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.2em]"
               >
                 Join the Line
               </button>

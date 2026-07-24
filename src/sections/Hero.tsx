@@ -175,7 +175,7 @@ export default function Hero() {
       {/* Background video + overlays — the hero always stays in this ambient state */}
       <div className="absolute inset-0" aria-hidden="true">
         <video
-          className="rl-hero-video h-full w-full object-cover"
+          className="rl-hero-video h-full w-full object-cover object-[60%_center] md:object-[78%_center]"
           src="/videos/hero-alive.mp4"
           poster="/images/hero.png"
           autoPlay
@@ -188,10 +188,10 @@ export default function Hero() {
         <img
           src="/images/hero.png"
           alt=""
-          className="rl-hero-fallback h-full w-full object-cover"
+          className="rl-hero-fallback h-full w-full object-cover object-[60%_center] md:object-[78%_center]"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0908]/70 via-[#0A0908]/30 to-[#0A0908]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(10,9,8,0.92),rgba(10,9,8,0.55)_45%,rgba(10,9,8,0.15)_75%)]" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A0908] via-[#0A0908]/45 to-transparent" />
 
         {/* Living-hero overlay: sun rays, above video, below text */}
@@ -206,51 +206,54 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-6 pb-16 pt-36">
-        <p
-          className="animate-fade-up text-[11px] uppercase tracking-[0.3em] text-[#D4A437]"
-          style={{ animationDelay: "0.1s" }}
-        >
-          A Black-Owned Creator Network
-        </p>
-
-        <h1
-          className="animate-fade-up mt-6 font-display text-5xl font-black leading-[0.95] tracking-tight text-[#F5EFE6] sm:text-7xl lg:text-8xl"
-          style={{ animationDelay: "0.25s" }}
-        >
-          The Culture.
-          <br />
-          Owned by the
-          <br />
-          <em className="italic text-[#D4A437]">Culture.</em>
-        </h1>
-
-        <p
-          className="animate-fade-up mt-8 max-w-xl text-base leading-relaxed text-stone-300 sm:text-lg"
-          style={{ animationDelay: "0.4s" }}
-        >
-          From the juke joint to the group chat — one stage, our stage. Watch,
-          create, and get paid with receipts.
-        </p>
-
-        <div
-          className="animate-fade-up mt-10 flex flex-wrap items-center gap-4"
-          style={{ animationDelay: "0.55s" }}
-        >
-          <button
-            type="button"
-            onClick={() => setPlayerOpen(true)}
-            className="inline-flex items-center gap-3 bg-[#D4A437] px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#0A0908] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#E5BB54]"
+        {/* Left-aligned text column — never wide enough to cover her face */}
+        <div className="max-w-xl lg:max-w-2xl">
+          <p
+            className="gold-text animate-fade-up text-[11px] uppercase tracking-[0.3em]"
+            style={{ animationDelay: "0.1s" }}
           >
-            <Play size={14} fill="currentColor" aria-hidden="true" />
-            Start Watching
-          </button>
-          <a
-            href="#studio"
-            className="inline-flex items-center gap-3 border border-white/25 px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#F5EFE6] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D4A437] hover:text-[#D4A437]"
+            A Black-Owned Creator Network
+          </p>
+
+          <h1
+            className="animate-fade-up mt-6 font-display text-5xl font-black leading-[0.95] tracking-tight text-[#F5EFE6] sm:text-7xl lg:text-8xl"
+            style={{ animationDelay: "0.25s" }}
           >
-            Open the Studio
-            <ArrowUpRight size={14} aria-hidden="true" />
-          </a>
+            The Culture.
+            <br />
+            Owned by the
+            <br />
+            <em className="gold-text italic">Culture.</em>
+          </h1>
+
+          <p
+            className="animate-fade-up mt-8 text-base leading-relaxed text-stone-300 sm:text-lg"
+            style={{ animationDelay: "0.4s" }}
+          >
+            From the juke joint to the group chat — one stage, our stage. Watch,
+            create, and get paid with receipts.
+          </p>
+
+          <div
+            className="animate-fade-up mt-10 flex flex-wrap items-center gap-4"
+            style={{ animationDelay: "0.55s" }}
+          >
+            <button
+              type="button"
+              onClick={() => setPlayerOpen(true)}
+              className="inline-flex items-center gap-3 bg-[#D4A437] px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#0A0908] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#E5BB54]"
+            >
+              <Play size={14} fill="currentColor" aria-hidden="true" />
+              Start Watching
+            </button>
+            <a
+              href="#studio"
+              className="inline-flex items-center gap-3 border border-white/25 px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#F5EFE6] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D4A437] hover:text-[#D4A437]"
+            >
+              Open the Studio
+              <ArrowUpRight size={14} aria-hidden="true" />
+            </a>
+          </div>
         </div>
 
         {/* Stats bar */}

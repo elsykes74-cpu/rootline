@@ -121,7 +121,7 @@ function EraColumn({
 }) {
   return (
     <div className="rounded-lg border border-white/10 bg-white/[0.02] p-6 backdrop-blur-sm sm:p-8">
-      <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.3em] text-[#D4A437]">
+      <p className="gold-text mb-1 text-[11px] font-bold uppercase tracking-[0.3em]">
         {label}
       </p>
       <p className="font-display mb-6 text-xl italic text-[#F5EFE6]">{tagline}</p>
@@ -172,12 +172,12 @@ export default function HipHop() {
               transition: "opacity 0.8s ease, transform 0.8s ease",
             }}
           >
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-[#D4A437]">
+            <p className="gold-text mb-4 text-xs font-bold uppercase tracking-[0.3em]">
               Est. 1973 — The Bronx
             </p>
             <h2 className="font-display max-w-4xl text-6xl leading-[0.95] tracking-tight text-[#F5EFE6] sm:text-7xl lg:text-8xl">
               Hip Hop Is{" "}
-              <em className="italic text-[#D4A437]">Home.</em>
+              <em className="gold-text italic">Home.</em>
             </h2>
             <p className="mt-8 max-w-2xl text-base leading-relaxed text-stone-300 sm:text-lg">
               Fifty years strong. From the Sedgwick Avenue block parties where two

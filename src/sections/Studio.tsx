@@ -16,12 +16,12 @@ export default function Studio() {
               : "translate-y-8 opacity-0"
           }`}
         >
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-[#D4A437]">
+          <p className="gold-text mb-4 text-xs font-semibold uppercase tracking-[0.3em]">
             Creator Studio
           </p>
           <h2 className="font-display text-4xl leading-tight tracking-tight text-[#F5EFE6] md:text-6xl">
             Upload. Package.{" "}
-            <span className="italic text-[#D4A437]">Publish.</span>
+            <span className="gold-text italic">Publish.</span>
           </h2>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-stone-400">
             A demo workspace for packaging, review, publishing, and receipts.

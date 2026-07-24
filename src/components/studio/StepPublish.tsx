@@ -113,7 +113,7 @@ export default function StepPublish({
             <BadgeCheck className="h-7 w-7" />
           </span>
           <p className="font-display text-2xl text-[#F5EFE6]">
-            Published to <span className="italic text-[#D4A437]">ROOTLINE.</span>
+            Published to <span className="gold-text italic">ROOTLINE.</span>
           </p>
           <p className="mt-3 text-sm leading-relaxed text-stone-400">
             <span className="font-semibold text-[#F5EFE6]">
@@ -141,12 +141,12 @@ export default function StepPublish({
   if (published) {
     return (
       <div className="space-y-6">
-        <div className="rounded-2xl border border-[#D4A437]/50 bg-[#D4A437]/5 px-6 py-8 text-center">
+        <div className="gold-frame rounded-2xl px-6 py-8 text-center">
           <span className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-[#D4A437] bg-[#D4A437]/15 text-[#D4A437]">
             <BadgeCheck className="h-7 w-7" />
           </span>
           <p className="font-display text-2xl text-[#F5EFE6]">
-            Published <span className="italic text-[#D4A437]">as demo.</span>
+            Published <span className="gold-text italic">as demo.</span>
           </p>
           <p className="mt-3 text-sm leading-relaxed text-stone-400">
             1080p preview live · 4K processing continues · Receipt{" "}
@@ -217,7 +217,7 @@ export default function StepPublish({
     <div className="space-y-6">
       {/* Supabase sign-in gate for real publishing */}
       {isSupabaseEnabled && !user && (
-        <div className="flex flex-wrap items-center gap-4 rounded-xl border border-[#D4A437]/50 bg-[#D4A437]/5 px-5 py-4">
+        <div className="gold-frame flex flex-wrap items-center gap-4 rounded-xl px-5 py-4">
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#D4A437]/15 text-[#D4A437]">
             <LogIn className="h-5 w-5" />
           </span>
@@ -233,7 +233,7 @@ export default function StepPublish({
           <button
             type="button"
             onClick={onRequestSignIn}
-            className="shrink-0 rounded-sm bg-[#D4A437] px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-[#0A0908] transition-all duration-300 hover:bg-[#e2b84f]"
+            className="gold-btn shrink-0 rounded-sm px-5 py-2.5 text-xs font-bold uppercase tracking-widest transition-all duration-300"
           >
             Sign in
           </button>
@@ -285,7 +285,7 @@ export default function StepPublish({
                 onClick={() => setVisibility(o.value)}
                 className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider transition-all duration-300 ${
                   active
-                    ? "border-[#D4A437] bg-[#D4A437] text-[#0A0908]"
+                    ? "border-transparent gold-btn"
                     : "border-white/15 text-stone-400 hover:border-[#D4A437]/60 hover:text-[#D4A437]"
                 }`}
               >
@@ -350,7 +350,7 @@ export default function StepPublish({
             type="button"
             onClick={() => void handleRealPublish()}
             disabled={busy}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-sm bg-[#D4A437] px-6 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-[#0A0908] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#e2b84f] disabled:opacity-60 disabled:hover:translate-y-0"
+            className="gold-btn inline-flex w-full items-center justify-center gap-2 rounded-sm px-6 py-3.5 text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-60 disabled:hover:translate-y-0"
           >
             {busy ? (
               <Loader2 className="h-4 w-4 animate-spin" />
@@ -374,7 +374,7 @@ export default function StepPublish({
         <button
           type="button"
           onClick={() => setPublished(true)}
-          className="w-full rounded-sm bg-[#D4A437] px-6 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-[#0A0908] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#e2b84f]"
+          className="gold-btn w-full rounded-sm px-6 py-3.5 text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 hover:-translate-y-0.5"
         >
           Publish demo video
         </button>

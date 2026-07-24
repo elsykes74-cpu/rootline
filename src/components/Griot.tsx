@@ -173,7 +173,7 @@ export default function Griot() {
               style={{ animation: "griot-frame-in 0.7s ease-out 0.15s both" }}
             >
               {/* Eyebrow + serif line */}
-              <p className="text-[10px] font-semibold uppercase tracking-[0.45em] text-[#D4A437]">
+              <p className="gold-text text-[10px] font-semibold uppercase tracking-[0.45em]">
                 The Griot
               </p>
               <h2 className="font-display mt-2 mb-6 text-center text-3xl italic text-[#F5EFE6] sm:text-4xl">
@@ -182,7 +182,7 @@ export default function Griot() {
 
               {videoFailed ? (
                 /* Portrait fallback when the welcome video cannot play */
-                <div className="w-full max-w-md overflow-hidden rounded-2xl border border-[#D4A437]/50 shadow-[0_0_60px_rgba(212,164,55,0.25)]">
+                <div className="gold-frame w-full max-w-md overflow-hidden rounded-2xl">
                   <img
                     src={GRIOT_PORTRAIT}
                     alt="The Griot, Keeper of the Stories"
@@ -191,7 +191,7 @@ export default function Griot() {
                 </div>
               ) : (
                 /* Gold-framed player */
-                <div className="w-full overflow-hidden rounded-2xl border border-[#D4A437]/50 shadow-[0_0_60px_rgba(212,164,55,0.25)]">
+                <div className="gold-frame w-full overflow-hidden rounded-2xl">
                   <video
                     ref={videoRef}
                     src={GRIOT_VIDEO}
@@ -218,7 +218,7 @@ export default function Griot() {
               <button
                 type="button"
                 onClick={closeTheater}
-                className="mt-7 bg-[#D4A437] px-8 py-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#0A0908] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#E5BB54] hover:shadow-[0_10px_40px_rgba(212,164,55,0.35)]"
+                className="gold-btn mt-7 px-8 py-3 text-[11px] font-semibold uppercase tracking-[0.25em] transition-all duration-300 hover:-translate-y-0.5"
               >
                 Enter the Line
               </button>

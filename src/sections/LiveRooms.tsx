@@ -134,7 +134,7 @@ function LiveCard({ room, index, visible }: { room: Room; index: number; visible
             type="button"
             onClick={() => setJoined((j) => !j)}
             aria-pressed={joined}
-            className="translate-y-2 rounded-sm bg-[#D4A437] px-5 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#0A0908] transition-all duration-300 hover:bg-[#F5EFE6] group-hover:translate-y-0"
+            className="gold-btn translate-y-2 rounded-sm px-5 py-2 text-[11px] font-bold uppercase tracking-[0.2em] transition-all duration-300 group-hover:translate-y-0"
           >
             {joined ? "Joined" : "Join Room"}
           </button>
@@ -169,12 +169,12 @@ export default function LiveRooms() {
         >
           <div className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#D4A437]">
-                <Radio className="h-4 w-4" />
+              <p className="gold-text mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em]">
+                <Radio className="h-4 w-4 text-[#D4A437]" />
                 Live on the Line
               </p>
               <h2 className="font-display text-4xl leading-tight tracking-tight text-[#F5EFE6] sm:text-5xl">
-                Pull Up <em className="italic text-[#D4A437]">Right Now.</em>
+                Pull Up <em className="gold-text italic">Right Now.</em>
               </h2>
             </div>
             <p className="max-w-sm text-sm leading-relaxed text-stone-400">

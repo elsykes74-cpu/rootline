@@ -6,7 +6,7 @@ const TIER_ICONS = [Gauge, Crown, FlaskConical];
 export default function LimitsSidebar() {
   return (
     <aside className="space-y-4">
-      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#D4A437]">
+      <p className="gold-text text-xs font-semibold uppercase tracking-[0.3em]">
         Upload limits
       </p>
       {LIMIT_TIERS.map((tier, i) => {
@@ -14,10 +14,10 @@ export default function LimitsSidebar() {
         return (
           <div
             key={tier.name}
-            className={`rounded-xl border px-5 py-4 transition-all duration-300 hover:-translate-y-0.5 ${
+            className={`rounded-xl px-5 py-4 transition-all duration-300 hover:-translate-y-0.5 ${
               tier.highlight
-                ? "border-[#D4A437]/60 bg-[#D4A437]/5"
-                : "border-white/10 bg-white/[0.02]"
+                ? "gold-frame"
+                : "border border-white/10 bg-white/[0.02]"
             }`}
           >
             <div className="mb-2 flex items-center gap-2">
