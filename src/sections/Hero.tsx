@@ -176,7 +176,7 @@ export default function Hero() {
       <div className="absolute inset-0" aria-hidden="true">
         <video
           className="rl-hero-video h-full w-full object-cover"
-          src="/videos/hero-loop.mp4"
+          src="/videos/hero-alive.mp4"
           poster="/images/hero.png"
           autoPlay
           muted

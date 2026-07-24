@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import { Play } from "lucide-react";
 
 export interface Video {
@@ -37,6 +37,12 @@ export function categoryAudioSrc(category: string): string {
   return slug ? `/audio/${slug}.mp3` : "/audio/culture.mp3";
 }
 
+/** Maps a video category to its living cinemagraph loop. */
+export function categoryVideoSrc(category: string): string {
+  const slug = CATEGORY_AUDIO_SLUGS[category];
+  return slug ? `/videos/loop-${slug}.mp4` : "/videos/loop-culture.mp4";
+}
+
 interface VideoCardProps {
   video: Video;
   onSelect: (video: Video) => void;
@@ -45,11 +51,32 @@ interface VideoCardProps {
 
 export default function VideoCard({ video, onSelect, style }: VideoCardProps) {
   const isLive = video.duration === "LIVE";
+  const loopRef = useRef<HTMLVideoElement | null>(null);
+  const [loopPlaying, setLoopPlaying] = useState(false);
+  const [loopFailed, setLoopFailed] = useState(false);
+
+  const startLoop = () => {
+    const v = loopRef.current;
+    if (!v || loopFailed) return;
+    v.play().catch(() => {
+      // Autoplay blocked or missing file — stay on the still image.
+    });
+  };
+
+  const stopLoop = () => {
+    const v = loopRef.current;
+    if (!v) return;
+    v.pause();
+    v.currentTime = 0;
+    setLoopPlaying(false);
+  };
 
   return (
     <button
       type="button"
       onClick={() => onSelect(video)}
+      onMouseEnter={startLoop}
+      onMouseLeave={stopLoop}
       style={style}
       className="group rl-card-enter w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A437] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0908] rounded-sm"
       aria-label={`Play ${video.title} by ${video.creator}`}
@@ -62,6 +89,24 @@ export default function VideoCard({ video, onSelect, style }: VideoCardProps) {
           loading="lazy"
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         />
+        {/* Living cinemagraph — crossfades in over the still on hover */}
+        {!loopFailed && (
+          <video
+            ref={loopRef}
+            src={categoryVideoSrc(video.category)}
+            poster={video.thumb}
+            muted
+            loop
+            playsInline
+            preload="none"
+            aria-hidden="true"
+            onPlaying={() => setLoopPlaying(true)}
+            onError={() => setLoopFailed(true)}
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out ${
+              loopPlaying ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        )}
         {/* Dark gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/30 transition-opacity duration-500 group-hover:opacity-80" />
 
